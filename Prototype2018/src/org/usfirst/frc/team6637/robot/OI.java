@@ -17,6 +17,9 @@ public class OI {
 	// button.whenPressed(new ExampleCommand());
 	// button.whileHeld(new ExampleCommand());
 	// button.whenReleased(new ExampleCommand());
+	
+	// Eric adding comment for Git testing. feel free to remove.
+	
 	public Joystick joystick = new Joystick(RobotMap.Joystick);
 	
 	public OI() {
