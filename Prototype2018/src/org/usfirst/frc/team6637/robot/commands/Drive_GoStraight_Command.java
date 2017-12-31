@@ -25,7 +25,7 @@ public class Drive_GoStraight_Command extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     		double angle = Robot.gyro.getAngle();
-    		Robot.driveSubsystem.autonDrive(1.0, -angle*Kp); // drive towards heading 0
+    		Robot.driveSubsystem.autonDrive(-0.5, -angle*Kp); // drive towards heading 0
 		Timer.delay(0.004);
     }
 

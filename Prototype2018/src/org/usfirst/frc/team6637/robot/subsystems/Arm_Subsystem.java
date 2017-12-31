@@ -2,14 +2,14 @@ package org.usfirst.frc.team6637.robot.subsystems;
 
 import org.usfirst.frc.team6637.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 
 public class Arm_Subsystem extends Subsystem {
 
-    public Victor Arm = new Victor(RobotMap.ArmVictor);
-    public static final double armSpeed = 1;
+    public Spark Arm = new Spark(RobotMap.ArmSpark);
+    public static final double armSpeed = 0.25;
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.

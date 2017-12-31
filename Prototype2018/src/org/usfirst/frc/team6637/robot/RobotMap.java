@@ -9,9 +9,9 @@ package org.usfirst.frc.team6637.robot;
 public class RobotMap {
 	
 	// PWM?
-	public static final int LVictor = 2;
-	public static final int RVictor = 1;
-	public static final int ArmVictor = 3;
+	public static final int LVictor = 1;
+	public static final int RVictor = 0;
+	public static final int ArmSpark = 2;
 	
 	// DriveStation
 	public static final int Joystick = 0;

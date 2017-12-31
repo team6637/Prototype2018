@@ -18,16 +18,12 @@ public class OI {
 	// button.whileHeld(new ExampleCommand());
 	// button.whenReleased(new ExampleCommand());
 	
-	// Eric adding comment for Git testing. feel free to remove.
-	
 	public Joystick joystick = new Joystick(RobotMap.Joystick);
+	Button armExtendButton = new JoystickButton(joystick, 1);
+	Button armRetractButton = new JoystickButton(joystick, 2);
 	
 	public OI() {
-	
-		Button armExtendButton = new JoystickButton(joystick, 3);
 		armExtendButton.whileHeld(new Arm_Extend_Command());
-		
-		Button armRetractButton = new JoystickButton(joystick, 4);
 		armRetractButton.whileHeld(new Arm_Retract_Command());
 	}
 	
