@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Drive_GoStraight_Command extends Command {
 	
-	public double Kp = 0.03;
+	public double Kp = -0.035;
 	public double feet;
 	
     public Drive_GoStraight_Command(double feetToDrive) {
@@ -25,6 +25,7 @@ public class Drive_GoStraight_Command extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     		double angle = Robot.gyro.getAngle();
+    		System.out.println(angle);
     		Robot.driveSubsystem.autonDrive(-0.5, -angle*Kp); // drive towards heading 0
 		Timer.delay(0.004);
     }
