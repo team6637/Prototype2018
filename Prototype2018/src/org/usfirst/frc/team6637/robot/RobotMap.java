@@ -8,7 +8,7 @@ package org.usfirst.frc.team6637.robot;
  */
 public class RobotMap {
 	
-	// PWM?
+	// PWM
 	public static final int LVictor = 1;
 	public static final int RVictor = 0;
 	public static final int ArmSpark = 2;
@@ -17,9 +17,9 @@ public class RobotMap {
 	public static final int Joystick = 0;
 	
 	// DIO
-	public static final int leftWheelEncoderA = 0;
-	public static final int leftWheelEncoderB = 1;
-	public static final int rightWheelEncoderA = 2;
-	public static final int rightWheelEncoderB = 3;
+	public static final int LDriveEncoderA = 0;
+	public static final int LDriveEncoderB = 1;
+	public static final int RDriveEncoderA = 2;
+	public static final int RDriveEncoderB = 3;
 	
 }

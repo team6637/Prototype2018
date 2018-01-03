@@ -2,51 +2,58 @@ package org.usfirst.frc.team6637.robot.subsystems;
 
 import org.usfirst.frc.team6637.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrainEncoders_Subsystem extends Subsystem {
 
-    Encoder leftWheelEncoder = new Encoder(RobotMap.leftWheelEncoderA, RobotMap.leftWheelEncoderB, true, EncodingType.k4X);
-	Encoder rightWheelEncoder = new Encoder(RobotMap.rightWheelEncoderA, RobotMap.rightWheelEncoderB, true, EncodingType.k4X);
+    Encoder LDriveEncoder, RDriveEncoder;
+	
+	public static final double WHEEL_DIAMETER = 6;
+	public static final double PULSE_PER_REVOLUTION = 360;
+	public static final double FUDGE_FACTOR = 1.0;
+	
+	public DriveTrainEncoders_Subsystem() {
+		LDriveEncoder = new Encoder(RobotMap.LDriveEncoderA, RobotMap.LDriveEncoderB, true, Encoder.EncodingType.k4X);
+    	RDriveEncoder = new Encoder(RobotMap.RDriveEncoderA, RobotMap.RDriveEncoderB, false, Encoder.EncodingType.k4X);
+    	RDriveEncoder.setDistancePerPulse(Math.PI * WHEEL_DIAMETER / PULSE_PER_REVOLUTION * FUDGE_FACTOR); // inches / pulse
+    	RDriveEncoder.setMinRate(.1);
+    	RDriveEncoder.setSamplesToAverage(7);
+    	LDriveEncoder.setDistancePerPulse(Math.PI * WHEEL_DIAMETER / PULSE_PER_REVOLUTION * FUDGE_FACTOR); // inches / pulse
+    	LDriveEncoder.setMinRate(.1);
+    	LDriveEncoder.setSamplesToAverage(7);
+    	
+    	resetEncoders();
+    	
+	}
     
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
-    public void initEncoders(){
-    	//6'11"=83 inches per 3430 ticks
-    	rightWheelEncoder.setDistancePerPulse(-83.0/3430.0); // inches /ticks
-    	rightWheelEncoder.setMinRate(.1);
-    	rightWheelEncoder.setSamplesToAverage(7);
-    	leftWheelEncoder.setDistancePerPulse(83.0/3430.0); // inches /ticks
-    	leftWheelEncoder.setMinRate(.1);
-    	leftWheelEncoder.setSamplesToAverage(7);
-    }
     
     public double getRightDistance(){
-    		return rightWheelEncoder.getDistance();
+    	return RDriveEncoder.getDistance();
     }
     
     public double getRightRate(){
-    		return rightWheelEncoder.getRate();
+    	return RDriveEncoder.getRate();
     }
     
     public double getLeftDistance(){
-    		return leftWheelEncoder.getDistance();
+    	return LDriveEncoder.getDistance();
     }
     
     public double getLeftRate(){
-    		return leftWheelEncoder.getRate();	
+    	return LDriveEncoder.getRate();	
     }
     
     public double getAverageDistance(){
-    		return (getLeftDistance() + getRightDistance()) / 2;
+    	return (getLeftDistance() + getRightDistance()) / 2;
     }
     
     public void resetEncoders(){
-    		leftWheelEncoder.reset();
-    		rightWheelEncoder.reset();
+    	LDriveEncoder.reset();
+    	RDriveEncoder.reset();
     }
 }

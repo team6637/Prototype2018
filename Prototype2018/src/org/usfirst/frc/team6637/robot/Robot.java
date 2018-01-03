@@ -31,8 +31,8 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		
 		// AUTON CHOOSER SETUP
-		chooser.addDefault("Drive Straight", new Drive_GoStraight_Command(5.0));
-		chooser.addObject("Test Values", new Drive_GoStraight_Command(3.0));
+		chooser.addDefault("Drive Straight 5 feet", new Drive_GoStraight_Command(60.0, 0.4));
+		chooser.addObject("Drive Straight 3 feet", new Drive_GoStraight_Command(36.0, 0.4));
 		SmartDashboard.putData("Auto mode", chooser);
 		
 		gyro = new ADXRS450_Gyro();		

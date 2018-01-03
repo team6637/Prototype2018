@@ -8,12 +8,15 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Drive_GoStraight_Command extends Command {
 	
 	public double Kp = -0.035;
-	public double feet;
+	public double inches,power,brakePower;
 	
-    public Drive_GoStraight_Command(double feetToDrive) {
+    public Drive_GoStraight_Command(double inchesVar, double powerVar) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.driveSubsystem);
-    		feet = feetToDrive;
+        requires(Robot.driveTrainEncoders);
+    	inches = inchesVar;
+    	power = powerVar;
+		brakePower = 0.2; 
     }
 
     // Called just before this Command runs the first time
@@ -24,26 +27,35 @@ public class Drive_GoStraight_Command extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    		double angle = Robot.gyro.getAngle();
-    		System.out.println(angle);
-    		Robot.driveSubsystem.autonDrive(-0.5, -angle*Kp); // drive towards heading 0
+    	double angle = Robot.gyro.getAngle();
+    	
+    	//drive or drive braked
+    	if(Robot.driveTrainEncoders.getAverageDistance() > inches - 12) {
+    		Robot.driveSubsystem.autonDrive(-brakePower, -angle*Kp);
+    	} else {
+    		Robot.driveSubsystem.autonDrive(-power, -angle*Kp);
+    	}
+    	
 		Timer.delay(0.004);
+		//System.out.println(Robot.driveTrainEncoders.getAverageDistance());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if(Robot.driveTrainEncoders.getAverageDistance() >= feet) {
-        		return true;
+        if(Robot.driveTrainEncoders.getAverageDistance() >= inches) {
+        	return true;
         }
         return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.driveSubsystem.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }
