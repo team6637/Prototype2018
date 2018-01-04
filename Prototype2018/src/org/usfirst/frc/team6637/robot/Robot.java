@@ -15,12 +15,14 @@ import org.usfirst.frc.team6637.robot.subsystems.DriveTrainEncoders_Subsystem;
 import org.usfirst.frc.team6637.robot.subsystems.Drive_Subsystem;
 
 public class Robot extends IterativeRobot {
-
+	
+	// load all subsystems
 	public static final Drive_Subsystem driveSubsystem = new Drive_Subsystem();
 	public static final DriveTrainEncoders_Subsystem driveTrainEncoders = new DriveTrainEncoders_Subsystem();
 	public static final Arm_Subsystem armSubsystem = new Arm_Subsystem();
 	public static OI oi;
 	
+	// gyro
 	public static ADXRS450_Gyro gyro;
 
 	Command autonomousCommand;
@@ -35,6 +37,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Drive Straight 3 feet", new Drive_GoStraight_Command(36.0, 0.4));
 		SmartDashboard.putData("Auto mode", chooser);
 		
+		// Gyro must be instantiated in the robotInit() function
 		gyro = new ADXRS450_Gyro();		
 	}
 
