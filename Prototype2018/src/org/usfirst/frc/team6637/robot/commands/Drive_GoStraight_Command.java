@@ -1,4 +1,4 @@
-package org.usfirst.frc.team6637.robot.commands;
+	package org.usfirst.frc.team6637.robot.commands;
 
 import org.usfirst.frc.team6637.robot.Robot;
 
@@ -33,11 +33,11 @@ public class Drive_GoStraight_Command extends Command {
     	
     	//drive normal, drive braked, drive in reverse breaked
     	if(Robot.driveTrainEncoders.getAverageDistance() < inches - 18) {
-    		Robot.driveSubsystem.autonDrive(-power, -angle*Kp);
+    		Robot.driveSubsystem.autonDrive(-power, -angle*Kp, false);
     	} else if(Robot.driveTrainEncoders.getAverageDistance() > (inches - 18) && Robot.driveTrainEncoders.getAverageDistance() < inches) {
-    		Robot.driveSubsystem.autonDrive(-brakePower, -angle*Kp);
+    		Robot.driveSubsystem.autonDrive(-brakePower, -angle*Kp, false);
     	} else if(Robot.driveTrainEncoders.getAverageDistance() > inches) {
-    		Robot.driveSubsystem.autonDrive(brakePower, angle*Kp);
+    		Robot.driveSubsystem.autonDrive(brakePower, angle*Kp, false);
     	}
     	
     	// if the robot is within 2 inches of goal, start tolerance counter, determines isFinished result
