@@ -35,6 +35,7 @@ public class Right_Auton_Commandgroup extends CommandGroup {
 			addSequential(new Drive_GoStraight_Command(24.0, 0.5, 5.0));
 		
 			// drop cube
+			
 		}else if(gameData.charAt(1) == 'R') {
 		//Scale is ours
 			
@@ -46,6 +47,8 @@ public class Right_Auton_Commandgroup extends CommandGroup {
 			
 			// drive forward 3 foot
 			addSequential(new Drive_GoStraight_Command(48.0, 0.5, 9.0));
+			
+		// NEITHER IS OURS - Go through the alley
 		} else {
 			
 			// drive forward 20.5 feet - 246 inches
