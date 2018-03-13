@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Arm_Subsystem extends Subsystem {
 
     public Spark Arm = new Spark(RobotMap.ArmSpark);
-    public static final double armSpeed = 0.25;
+    public static final double armSpeed = 0.5;
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.

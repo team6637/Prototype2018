@@ -1,17 +1,21 @@
 
 package org.usfirst.frc.team6637.robot;
 
+import org.usfirst.frc.team6637.robot.commands.Center_Auton_CommandGroup;
+import org.usfirst.frc.team6637.robot.commands.Left_Auton_CommandGroup;
+import org.usfirst.frc.team6637.robot.commands.Right_Auton_Commandgroup;
+import org.usfirst.frc.team6637.robot.subsystems.Arm_Subsystem;
+import org.usfirst.frc.team6637.robot.subsystems.DriveTrainEncoders_Subsystem;
+import org.usfirst.frc.team6637.robot.subsystems.Drive_Subsystem;
+
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team6637.robot.commands.Drive_GoStraight_Command;
-import org.usfirst.frc.team6637.robot.subsystems.Arm_Subsystem;
-import org.usfirst.frc.team6637.robot.subsystems.DriveTrainEncoders_Subsystem;
-import org.usfirst.frc.team6637.robot.subsystems.Drive_Subsystem;
 
 public class Robot extends IterativeRobot {
 	
@@ -32,9 +36,12 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		
 		// AUTON CHOOSER SETUP
-		chooser.addDefault("Drive Straight 5 feet", new Drive_GoStraight_Command(60.0, 0.4));
-		chooser.addObject("Drive Straight 3 feet", new Drive_GoStraight_Command(36.0, 0.4));
+		chooser.addDefault("Left Position", new Left_Auton_CommandGroup());
+		chooser.addObject("Center Position", new Center_Auton_CommandGroup());
+		chooser.addObject("Right Position", new Right_Auton_Commandgroup());
 		SmartDashboard.putData("Auto mode", chooser);
+
+		CameraServer.getInstance().startAutomaticCapture();
 		
 		// Gyro must be instantiated in the robotInit() function
 		gyro = new ADXRS450_Gyro();		

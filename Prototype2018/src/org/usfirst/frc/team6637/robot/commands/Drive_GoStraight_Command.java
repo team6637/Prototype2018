@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Drive_GoStraight_Command extends Command {
 	
 	public double Kp = -0.035;
-	public double inches,power,brakePower;
+	public double inches,power,brakePower,rampDown;
 	public int toleranceCount;
 	
-    public Drive_GoStraight_Command(double inchesVar, double powerVar) {
+    public Drive_GoStraight_Command(double inchesVar, double powerVar, double rampDownVar) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.driveSubsystem);
         requires(Robot.driveTrainEncoders);
@@ -19,8 +19,9 @@ public class Drive_GoStraight_Command extends Command {
     	power = powerVar;
 		brakePower = 0.2;
 		toleranceCount = 0;
+		rampDown = rampDownVar;
+    
     }
-
     // Called just before this Command runs the first time
     protected void initialize() {
 		Robot.gyro.reset();
@@ -32,12 +33,12 @@ public class Drive_GoStraight_Command extends Command {
     	double angle = Robot.gyro.getAngle();
     	
     	//drive normal, drive braked, drive in reverse breaked
-    	if(Robot.driveTrainEncoders.getAverageDistance() < inches - 18) {
-    		Robot.driveSubsystem.autonDrive(-power, -angle*Kp, false);
-    	} else if(Robot.driveTrainEncoders.getAverageDistance() > (inches - 18) && Robot.driveTrainEncoders.getAverageDistance() < inches) {
-    		Robot.driveSubsystem.autonDrive(-brakePower, -angle*Kp, false);
+    	if(Robot.driveTrainEncoders.getAverageDistance() < inches - rampDown) {
+    		Robot.driveSubsystem.autonDrive(-power, angle*Kp, false);
+    	} else if(Robot.driveTrainEncoders.getAverageDistance() > (inches - rampDown) && Robot.driveTrainEncoders.getAverageDistance() < inches) {
+    		Robot.driveSubsystem.autonDrive(-brakePower, angle*Kp, false);
     	} else if(Robot.driveTrainEncoders.getAverageDistance() > inches) {
-    		Robot.driveSubsystem.autonDrive(brakePower, angle*Kp, false);
+    		Robot.driveSubsystem.autonDrive(brakePower, -angle*Kp, false);
     	}
     	
     	// if the robot is within 2 inches of goal, start tolerance counter, determines isFinished result
@@ -53,7 +54,7 @@ public class Drive_GoStraight_Command extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if(toleranceCount == 100) {
+        if(toleranceCount == 50) {
         	return true;
         }
         return false;
